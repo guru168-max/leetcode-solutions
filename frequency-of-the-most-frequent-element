@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int maxFrequency(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+
+        int left = 0;
+        int ans = 1;
+        long long currentSum = 0;
+
+        for (int right = 0; right < nums.size(); right++) {
+
+            // Currently, I am standing at nums[right],
+            // so include this element in the current window.
+            currentSum += nums[right];
+
+            // Now check whether every element in the current window
+            // can become equal to nums[right].
+            //
+            // currentSum = sum of all elements in the current window.
+            //
+            // requiredSum = nums[right] * windowSize
+            // because every element in the window should become nums[right].
+            //
+            // cost = requiredSum - currentSum
+
+            while (1LL * nums[right] * (right - left + 1) - currentSum > k) {
+
+                // If the required cost exceeds k,
+                // shrink the window by removing the leftmost element.
+                currentSum -= nums[left];
+                left++;
+            }
+
+            // Update the maximum valid window size.
+            ans = max(ans, right - left + 1);
+        }
+
+        return ans;
+    }
+};
