@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        // Step 1: I need the minimum of the two heights because
+        //         the smaller height decides how much water can be stored.
+
+        // Step 2: Start with the maximum possible distance
+        //         (left = 0, right = n - 1).
+
+        // Step 3: Calculate the current area and update the answer.
+
+        // Step 4: I am going to lose width no matter what by moving a pointer.
+        //         So instead of keeping the smaller height,
+        //         move that pointer and hope to find a taller height.
+
+        // If left height is smaller, move left.
+        // Otherwise, move right.
+
+        int left = 0;
+        int right = height.size() - 1;
+        int area = 0;
+        while (left < right) {
+            area = max(area, min(height[left], height[right]) * (right - left));
+            if (height[left] < height[right])
+                left++;
+            else
+                right--;
+        }
+        return area;
+    }
+};
