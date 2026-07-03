@@ -1,0 +1,43 @@
+class Solution {
+public:
+    bool isNStraightHand(vector<int>& hand, int groupSize) {
+
+        // Step 1:- If the cards cannot be divided into equal groups
+        if(hand.size() % groupSize != 0) return false;
+
+        // Step 2:- Sort the cards so that we always start from the smallest card
+        sort(hand.begin(), hand.end());
+
+        // Step 3:- Store the frequency of each card
+        unordered_map<int,int> mpp;
+        for(auto it : hand) mpp[it]++;
+
+        // Step 4:- Traverse the sorted cards
+        for(int i = 0; i < hand.size(); i++)
+        {
+            // If the current card is already used, skip it
+            if(mpp[hand[i]] == 0) continue;
+
+            // Use the current card as the starting card of the group
+            mpp[hand[i]]--;
+
+            int curr = hand[i];
+
+            // Step 5:- Find the remaining consecutive cards
+            for(int j = 1; j < groupSize; j++)
+            {
+                // If the next consecutive card is not available
+                if(mpp[curr + 1] == 0) return false;
+
+                // Otherwise, use it
+                mpp[curr + 1]--;
+
+                // Move to the next expected card
+                curr++;
+            }
+        }
+
+        //formed all groups
+        return true;
+    }
+};
