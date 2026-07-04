@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool checkValidString(string s) {
+        int n = s.size();
+        stack<int> forOpen;
+        stack<int> forStar;
+        for (int i = 0; i < n; i++) {
+            if (s[i] == '(') {
+                forOpen.push(i);
+            } else if (s[i] == '*') {
+                forStar.push(i);
+            } else { 
+
+                if (!forOpen.empty()) {
+                    forOpen.pop();
+                } else if (!forStar.empty()) {
+                    forStar.pop();
+                } else {
+                    return false;
+                }
+            }
+        }
+        while (!forOpen.empty() && !forStar.empty()) {
+            if (forStar.top() > forOpen.top()) {
+                forStar.pop();
+                forOpen.pop();
+            } else {
+                return false;
+            }
+        }
+    return forOpen.empty();
+
+    }
+};
