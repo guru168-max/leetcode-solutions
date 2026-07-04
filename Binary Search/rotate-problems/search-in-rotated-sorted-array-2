@@ -1,0 +1,52 @@
+class Solution {
+public:
+    bool search(vector<int>& nums, int target) {
+        int n=nums.size();
+        int start=0;
+        int end=n-1;
+
+        while(start<=end)
+        {
+            int mid=start+(end-start)/2;
+    
+            if(nums[mid]==target) return true;
+            //now check which one part is sorted 
+            //if the start>mid it mean that right part is sorted
+            //if start<=mid left part is sorted
+               //check that mid and start and end are not same
+            if(nums[start]==nums[mid]&& nums[mid]==nums[end]){
+            start++;
+            end--; 
+            continue;};
+            if(nums[start]<=nums[mid])
+            {
+                //hey i am sure that i want search in this part
+                //if my target lies between me then end wala part must be skip
+                if(nums[start]<=target && nums[mid]>target)
+                {
+                    end=mid-1;
+                }
+                else
+                {
+                    start=mid+1;
+                }
+            }
+            //this is the right part is sorted
+
+            else
+            {
+                if(nums[mid]<target && nums[end]>=target)
+                {
+                    start=mid+1;
+                }
+                else
+                {
+                    end=mid-1;
+                }
+
+            }
+        }
+        return false;
+        
+    }
+};
