@@ -1,12 +1,15 @@
 class Solution {
 public:
     string removeKdigits(string num, int k) {
-        //order must be preserve
-        //and when we get 0 then before one as long as it smaller or greater no matters
-        //12345678
-        //like if the top> then pop it and count 
-        //119
-        //1
+// The relative order of the remaining digits must be preserved.
+// If the stack top is greater than the current digit,
+// remove it to make the number smaller.
+// Remove the larger digit and consume one deletion.
+// If deletions are still left,
+// remove digits from the end.
+// Build the answer from the stack.
+// Reverse because the stack stores digits in reverse order.
+
         stack<char>st;
         int n=num.size();
         string ans="";
