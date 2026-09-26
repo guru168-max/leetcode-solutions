@@ -46,6 +46,10 @@ public:
         //palinddrom then need to skip and check rest of same for the check on both sides
         //but when the from the left side we need to pass current+1 and same the the right prt
         //for the right one right+1 and start as it
+       //ex:-
+        //1st:- abcdca if we only go from left part then this will get correct one but what if
+        //2nd:- acdcba if we did not go from the right part then only goes from the left then it will giving me the wrong
+        //so need go from the both sides
 
         int n=s.size();
         int start=0;
